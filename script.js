@@ -23,33 +23,38 @@ const palette = {
   stemLight: '#8da66a',
   ribbonA: '#b8476a',
   ribbonB: '#f4adc1',
-  paperA: '#d8a977',
-  paperB: '#f0d0a7',
-  paperC: '#b98252',
+  paperA: '#ece4d5',
+  paperB: '#fbf6eb',
+  paperC: '#c9bda9',
+  newsInk: '#7d756a',
 };
 
 // 11 şakayık burada. Pozisyon, boyut ve renkleri buradan değiştirilebilir.
 const flowers = [
-  { x: 500, y: 390, size: 1.22, rot: -2,  base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 11 },
-  { x: 415, y: 455, size: 1.08, rot: -9,  base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 22 },
-  { x: 585, y: 455, size: 1.07, rot: 8,   base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 33 },
-  { x: 352, y: 378, size: 0.91, rot: -14, base: '#ffd1d7', accent: '#e4889b', light: '#fff6f3', seed: 44 },
-  { x: 648, y: 378, size: 0.92, rot: 13,  base: '#ef98ac', accent: '#bb4768', light: '#ffdee8', seed: 55 },
-  { x: 444, y: 292, size: 0.86, rot: 7,   base: '#f7b7c8', accent: '#d65b82', light: '#fff0f4', seed: 66 },
-  { x: 556, y: 294, size: 0.86, rot: -7,  base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 77 },
-  { x: 300, y: 492, size: 0.74, rot: -18, base: '#ffe1df', accent: '#e0929e', light: '#fff7f0', seed: 88 },
-  { x: 700, y: 492, size: 0.74, rot: 18,  base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 99 },
-  { x: 348, y: 290, size: 0.68, rot: -13, base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 111 },
-  { x: 652, y: 290, size: 0.68, rot: 13,  base: '#f3b0bf', accent: '#cc5f7c', light: '#ffe7ed', seed: 122 },
+  // 3 büyük merkez
+  { x: 500, y: 382, size: 1.18, rot: -2,  base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 11 },
+  { x: 415, y: 438, size: 1.04, rot: -8,  base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 22 },
+  { x: 585, y: 438, size: 1.04, rot: 8,   base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 33 },
+
+  // 4 orta çevre
+  { x: 382, y: 340, size: 0.88, rot: -12, base: '#ffd1d7', accent: '#e4889b', light: '#fff6f3', seed: 44 },
+  { x: 618, y: 340, size: 0.88, rot: 12,  base: '#ef98ac', accent: '#bb4768', light: '#ffdee8', seed: 55 },
+  { x: 452, y: 274, size: 0.82, rot: 7,   base: '#f7b7c8', accent: '#d65b82', light: '#fff0f4', seed: 66 },
+  { x: 548, y: 274, size: 0.82, rot: -7,  base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 77 },
+
+  // 4 küçük kenar ama artık dışarı kaçmıyor
+  { x: 344, y: 472, size: 0.72, rot: -15, base: '#ffe1df', accent: '#e0929e', light: '#fff7f0', seed: 88 },
+  { x: 656, y: 472, size: 0.72, rot: 15,  base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 99 },
+  { x: 376, y: 258, size: 0.64, rot: -10, base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 111 },
+  { x: 624, y: 258, size: 0.64, rot: 10,  base: '#f3b0bf', accent: '#cc5f7c', light: '#ffe7ed', seed: 122 },
 ];
 
 const leafConfigs = [
-  { x: 406, y: 665, rot: -62, s: 1.25 }, { x: 601, y: 646, rot: 52, s: 1.2 },
-  { x: 348, y: 585, rot: -82, s: 1.0 },  { x: 681, y: 585, rot: 82, s: 1.04 },
-  { x: 462, y: 742, rot: -35, s: .9 },   { x: 562, y: 750, rot: 35, s: .92 },
-  { x: 306, y: 474, rot: -118, s: .78 }, { x: 710, y: 462, rot: 116, s: .8 },
-  { x: 430, y: 351, rot: -134, s: .72 }, { x: 570, y: 352, rot: 132, s: .72 },
-  { x: 492, y: 618, rot: -12, s: .76 },  { x: 530, y: 605, rot: 18, s: .78 },
+  { x: 408, y: 628, rot: -46, s: 1.08 }, { x: 592, y: 626, rot: 46, s: 1.08 },
+  { x: 378, y: 548, rot: -66, s: .88 },  { x: 622, y: 548, rot: 66, s: .88 },
+  { x: 452, y: 704, rot: -28, s: .82 },  { x: 548, y: 704, rot: 28, s: .82 },
+  { x: 456, y: 514, rot: -22, s: .72 },  { x: 544, y: 514, rot: 22, s: .72 },
+  { x: 434, y: 386, rot: -124, s: .62 }, { x: 566, y: 386, rot: 124, s: .62 },
 ];
 
 function el(type, attrs = {}, children = []) {
@@ -131,20 +136,20 @@ function createDefs() {
   ]));
 
   defs.appendChild(el('linearGradient', { id: 'paperGradient', x1: '0', y1: '0', x2: '1', y2: '1' }, [
-    el('stop', { offset: '0%', 'stop-color': '#f5d9b1' }),
-    el('stop', { offset: '55%', 'stop-color': palette.paperA }),
+    el('stop', { offset: '0%', 'stop-color': '#fffaf0' }),
+    el('stop', { offset: '52%', 'stop-color': palette.paperA }),
     el('stop', { offset: '100%', 'stop-color': palette.paperC }),
   ]));
 
   defs.appendChild(el('linearGradient', { id: 'paperLightGradient', x1: '0', y1: '0', x2: '1', y2: '1' }, [
-    el('stop', { offset: '0%', 'stop-color': '#fff0d2' }),
-    el('stop', { offset: '64%', 'stop-color': palette.paperB }),
-    el('stop', { offset: '100%', 'stop-color': '#c89563' }),
+    el('stop', { offset: '0%', 'stop-color': '#fffdf7' }),
+    el('stop', { offset: '65%', 'stop-color': palette.paperB }),
+    el('stop', { offset: '100%', 'stop-color': '#d8cebd' }),
   ]));
 
   defs.appendChild(el('linearGradient', { id: 'paperShadowGradient', x1: '0', y1: '0', x2: '0', y2: '1' }, [
-    el('stop', { offset: '0%', 'stop-color': 'rgba(122,75,38,0.05)' }),
-    el('stop', { offset: '100%', 'stop-color': 'rgba(122,75,38,0.28)' }),
+    el('stop', { offset: '0%', 'stop-color': 'rgba(70,63,55,0.04)' }),
+    el('stop', { offset: '100%', 'stop-color': 'rgba(70,63,55,0.22)' }),
   ]));
 
   flowers.forEach((f, i) => {
@@ -168,10 +173,10 @@ function createDefs() {
 }
 
 function curvedStemPath(startX, startY, endX, endY, bend) {
-  const c1x = startX + bend * 0.4;
-  const c1y = startY - 220;
-  const c2x = endX - bend;
-  const c2y = endY + 210;
+  const c1x = startX + bend * 0.18;
+  const c1y = startY - 185;
+  const c2x = endX - bend * 0.28;
+  const c2y = endY + 155;
   return `M ${startX} ${startY} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${endX} ${endY}`;
 }
 
@@ -221,40 +226,39 @@ function petalHighlightPath(length, width) {
 }
 
 function makeSepal(delay) {
-  // Sapın çiçeğe bağlandığı görünür alt çanak.
-  // Bilerek petallerden SONRA çiziliyor; böylece çiçek dalın üstüne oturmuş görünür.
-  const group = el('g', { class: 'calyx-cover', transform: 'translate(0 78)' });
+  // Sap-çiçek birleşimi: çanak yapraklar çiçeğin hemen ALTINA oturur.
+  // Bu sayede dallar çiçekten bağımsız gibi görünmez.
+  const group = el('g', { class: 'calyx-cover', transform: 'translate(0 56)' });
 
   group.appendChild(el('path', {
     class: 'flower-neck',
-    d: 'M 0 62 C -2 44, -1 24, 0 7',
-    style: { '--delay': `${delay + 0.08}s` }
+    d: 'M 0 55 C -1 39, -1 22, 0 4',
+    style: { '--delay': `${delay + 0.06}s` }
   }));
 
-  const angles = [-62, -36, -14, 14, 36, 62];
+  const angles = [-58, -34, -12, 12, 34, 58];
   angles.forEach((angle, i) => {
     group.appendChild(el('path', {
       class: 'sepal',
-      d: 'M 0 10 C -11 -10 -8 -35 0 -56 C 11 -35 12 -10 0 10 Z',
+      d: 'M 0 8 C -10 -10 -7 -31 0 -48 C 10 -31 11 -10 0 8 Z',
       fill: i % 2 ? '#4f7449' : '#678852',
-      transform: `rotate(${angle}) translate(0 1)`,
-      style: { '--delay': `${delay + 0.14 + i * 0.035}s` }
+      transform: `rotate(${angle}) translate(0 -2)`,
+      style: { '--delay': `${delay + 0.10 + i * 0.03}s` }
     }));
   });
 
   group.appendChild(el('ellipse', {
     class: 'sepal',
     cx: '0',
-    cy: '18',
-    rx: '26',
-    ry: '12',
+    cy: '11',
+    rx: '21',
+    ry: '9',
     fill: '#55784c',
-    style: { '--delay': `${delay + 0.22}s` }
+    style: { '--delay': `${delay + 0.18}s` }
   }));
 
   return group;
 }
-
 function createPeony(config, index, delay) {
   const rand = mulberry32(config.seed);
   const group = el('g', {
@@ -328,82 +332,32 @@ function createPeony(config, index, delay) {
     }));
     group.appendChild(wrapper);
   }
+  group.appendChild(makeSepal(delay + 0.18));
 
-  group.appendChild(makeSepal(delay + 0.25));
-
-  return group;
-}
-
-function makeRibbon(delay) {
-  // Craft kağıdının üstünde sadece buketi bağlayan kısa ve zarif bir kurdele.
-  const group = el('g', { transform: 'translate(500 870)' });
-
-  group.appendChild(el('path', {
-    class: 'bow-piece',
-    d: 'M -24 0 C -92 -35 -126 -5 -112 31 C -74 45 -42 28 -12 8 Z',
-    fill: 'url(#ribbonGradient)',
-    style: { '--delay': `${delay}s` }
-  }));
-  group.appendChild(el('path', {
-    class: 'bow-piece',
-    d: 'M 24 0 C 92 -35 126 -5 112 31 C 74 45 42 28 12 8 Z',
-    fill: 'url(#ribbonGradient)',
-    style: { '--delay': `${delay + 0.08}s` }
-  }));
-  group.appendChild(el('ellipse', {
-    class: 'knot',
-    cx: '0', cy: '7', rx: '34', ry: '23',
-    fill: '#c34b70',
-    style: { '--delay': `${delay + 0.16}s` }
-  }));
-  group.appendChild(el('path', {
-    class: 'ribbon-piece',
-    d: 'M -27 25 C -36 72 -54 103 -72 132 C -42 120 -17 95 -2 55 C 10 94 34 120 66 134 C 51 96 39 70 28 25 Z',
-    fill: 'url(#ribbonGradient)',
-    opacity: '0.92',
-    style: { '--delay': `${delay + 0.22}s` }
-  }));
-  group.appendChild(el('path', {
-    class: 'ribbon-piece',
-    d: 'M -86 11 C -52 27 -22 26 -4 9',
-    fill: 'none',
-    stroke: 'rgba(255,255,255,.45)',
-    'stroke-width': '4.2',
-    'stroke-linecap': 'round',
-    style: { '--delay': `${delay + 0.32}s` }
-  }));
-  group.appendChild(el('path', {
-    class: 'ribbon-piece',
-    d: 'M 86 11 C 52 27 22 26 4 9',
-    fill: 'none',
-    stroke: 'rgba(255,255,255,.42)',
-    'stroke-width': '4.2',
-    'stroke-linecap': 'round',
-    style: { '--delay': `${delay + 0.36}s` }
-  }));
   return group;
 }
 
 function makeCraftPaperBack(delay) {
   const group = el('g', { id: 'paperBackLayer', transform: 'translate(0 0)' });
 
+  // Arka gazete kağıdı: çiçeklerin arkasında geniş ama düzenli sarım.
   group.appendChild(el('path', {
-    class: 'paper-piece paper-back',
-    d: 'M 268 612 C 345 666 423 712 500 790 C 578 710 657 666 734 612 C 705 782 664 947 594 1068 C 556 1091 522 1102 500 1106 C 478 1102 444 1091 406 1068 C 336 947 296 782 268 612 Z',
+    class: 'paper-piece paper-back newspaper-paper',
+    d: 'M 278 570 C 350 628 425 704 500 790 C 575 704 650 628 722 570 C 715 744 664 943 592 1072 C 556 1093 522 1104 500 1108 C 478 1104 444 1093 408 1072 C 336 943 285 744 278 570 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay}s` }
   }));
 
   group.appendChild(el('path', {
-    class: 'paper-piece paper-wing',
-    d: 'M 258 615 C 325 660 392 722 469 824 C 399 798 328 762 244 716 C 226 684 231 646 258 615 Z',
+    class: 'paper-piece paper-wing newspaper-paper',
+    d: 'M 278 574 C 336 626 397 705 474 822 C 392 795 320 756 248 704 C 230 660 242 607 278 574 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + 0.1}s` }
   }));
 
   group.appendChild(el('path', {
-    class: 'paper-piece paper-wing',
-    d: 'M 742 615 C 675 660 608 722 531 824 C 601 798 672 762 756 716 C 774 684 769 646 742 615 Z',
+    class: 'paper-piece paper-wing newspaper-paper',
+    d: 'M 722 574 C 664 626 603 705 526 822 C 608 795 680 756 752 704 C 770 660 758 607 722 574 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + 0.14}s` }
   }));
@@ -411,50 +365,96 @@ function makeCraftPaperBack(delay) {
   return group;
 }
 
+function makeNewsLines(group, delay, prefix, startY, side) {
+  for (let i = 0; i < 9; i++) {
+    const y = startY + i * 18;
+    const x1 = side === 'left' ? 322 + (i % 3) * 9 : 560 + (i % 3) * 6;
+    const x2 = side === 'left' ? 452 - (i % 2) * 16 : 690 - (i % 2) * 14;
+    group.appendChild(el('path', {
+      class: 'news-line',
+      d: `M ${x1} ${y} C ${(x1 + x2) / 2} ${y + 8}, ${(x1 + x2) / 2} ${y - 5}, ${x2} ${y + 2}`,
+      fill: 'none',
+      stroke: 'rgba(88,82,73,.28)',
+      'stroke-width': i % 3 === 0 ? '2.1' : '1.35',
+      'stroke-linecap': 'round',
+      style: { '--delay': `${delay + 0.55 + i * 0.045}s` }
+    }));
+  }
+}
+
 function makeCraftPaperFront(delay) {
   const group = el('g', { id: 'paperFrontLayer', transform: 'translate(0 0)' });
 
+  // Ön gazete sarımı: sapları toparlar, çiçekleri kağıda gömmez.
   group.appendChild(el('path', {
-    class: 'paper-piece paper-front',
-    d: 'M 289 676 C 368 746 438 811 500 898 C 562 811 632 746 711 676 C 691 831 647 986 586 1080 C 552 1096 521 1105 500 1108 C 479 1105 448 1096 414 1080 C 353 986 309 831 289 676 Z',
+    class: 'paper-piece paper-front newspaper-paper',
+    d: 'M 302 642 C 380 720 444 805 500 898 C 556 805 620 720 698 642 C 682 810 642 978 584 1078 C 550 1095 521 1105 500 1109 C 479 1105 450 1095 416 1078 C 358 978 318 810 302 642 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay + 0.2}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 289 676 C 360 742 430 807 500 898 C 452 883 392 844 323 792 C 301 754 290 716 289 676 Z',
-    fill: 'rgba(255,246,226,0.33)',
+    d: 'M 302 642 C 374 718 435 802 500 898 C 447 879 389 836 326 780 C 309 735 301 690 302 642 Z',
+    fill: 'rgba(255,255,255,0.28)',
     style: { '--delay': `${delay + 0.34}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 711 676 C 640 742 570 807 500 898 C 548 883 608 844 677 792 C 699 754 710 716 711 676 Z',
-    fill: 'rgba(134,84,44,0.12)',
+    d: 'M 698 642 C 626 718 565 802 500 898 C 553 879 611 836 674 780 C 691 735 699 690 698 642 Z',
+    fill: 'rgba(95,87,76,0.11)',
     style: { '--delay': `${delay + 0.38}s` }
   }));
 
-  const lines = [
-    'M 350 724 C 405 787 446 888 424 1040',
-    'M 650 724 C 595 787 554 888 576 1040',
-    'M 500 898 C 500 958 500 1015 500 1094',
-    'M 312 706 C 404 785 448 835 500 898',
-    'M 688 706 C 596 785 552 835 500 898',
+  const foldLines = [
+    'M 356 700 C 405 782 439 905 420 1040',
+    'M 644 700 C 595 782 561 905 580 1040',
+    'M 500 898 C 500 960 500 1020 500 1095',
+    'M 326 690 C 400 765 448 828 500 898',
+    'M 674 690 C 600 765 552 828 500 898',
   ];
 
-  lines.forEach((d, i) => {
+  foldLines.forEach((d, i) => {
     group.appendChild(el('path', {
       class: 'paper-line',
       d,
       fill: 'none',
-      stroke: i === 2 ? 'rgba(122,75,38,.18)' : 'rgba(255,248,232,.32)',
-      'stroke-width': i === 2 ? '2.2' : '2.8',
+      stroke: i === 2 ? 'rgba(88,82,73,.20)' : 'rgba(255,255,255,.38)',
+      'stroke-width': i === 2 ? '2' : '2.6',
       'stroke-linecap': 'round',
-      style: { '--delay': `${delay + 0.52 + i * 0.07}s` }
+      style: { '--delay': `${delay + 0.46 + i * 0.055}s` }
     }));
   });
 
+  makeNewsLines(group, delay, 'left', 706, 'left');
+  makeNewsLines(group, delay, 'right', 716, 'right');
+
+  return group;
+}
+
+function makeRibbon(delay) {
+  // Gazete kağıdının üstünde kısa, zarif bağ.
+  const group = el('g', { transform: 'translate(500 872)' });
+
+  group.appendChild(el('path', {
+    class: 'bow-piece',
+    d: 'M -22 0 C -82 -30 -112 -5 -101 26 C -68 40 -39 25 -11 7 Z',
+    fill: 'url(#ribbonGradient)',
+    style: { '--delay': `${delay}s` }
+  }));
+  group.appendChild(el('path', {
+    class: 'bow-piece',
+    d: 'M 22 0 C 82 -30 112 -5 101 26 C 68 40 39 25 11 7 Z',
+    fill: 'url(#ribbonGradient)',
+    style: { '--delay': `${delay + 0.08}s` }
+  }));
+  group.appendChild(el('ellipse', {
+    class: 'knot',
+    cx: '0', cy: '6', rx: '30', ry: '20',
+    fill: '#c34b70',
+    style: { '--delay': `${delay + 0.16}s` }
+  }));
   return group;
 }
 
@@ -494,15 +494,15 @@ function buildBouquet() {
   const sparkleLayer = el('g', { id: 'sparkleLayer' });
 
   const baseX = 500;
-  const baseY = 1016;
+  const baseY = 1010;
 
   flowers.forEach((flower, i) => {
-    const startX = baseX + (i - 5) * 6;
-    const bend = (flower.x - 500) * 0.62;
+    const startX = baseX + (i - 5) * 4.5;
+    const bend = (flower.x - 500) * 0.42;
     // Sap ucu çiçeğin alt çanak yaprağına bağlanıyor.
-    // Bu değer çiçek grubu içindeki makeSepal translate(0 78) ile uyumlu.
-    const stemEndY = flower.y + 142 * flower.size;
-    const path = curvedStemPath(startX, baseY + (i % 3) * 8, flower.x, stemEndY, bend);
+    // makeSepal translate(0 56) ile aynı eksene denk gelecek şekilde hesaplandı.
+    const stemEndY = flower.y + 108 * flower.size;
+    const path = curvedStemPath(startX, baseY + (i % 3) * 7, flower.x, stemEndY, bend);
     stemsLayer.appendChild(el('path', {
       class: 'stem-shadow',
       d: path,

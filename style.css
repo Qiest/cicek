@@ -75,7 +75,7 @@ body {
 }
 
 #bouquetSvg {
-  width: min(100%, 930px);
+  width: min(100%, 920px);
   height: auto;
   max-height: 96vh;
   display: block;
@@ -172,18 +172,47 @@ body.complete #bouquetCore {
 }
 
 
+
+
+.flower-neck {
+  fill: none;
+  stroke: url(#stemGradient);
+  stroke-width: 7.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 5px 5px rgba(50, 87, 52, 0.16));
+  opacity: 0;
+  animation: softAppear calc(0.45s * var(--animation-scale)) ease var(--delay) forwards;
+}
+
+.calyx-cover {
+  filter: drop-shadow(0 4px 5px rgba(49, 93, 62, 0.18));
+}
+
+
+
+.news-line {
+  opacity: 0;
+  animation: softAppear calc(0.72s * var(--animation-scale)) ease var(--delay) forwards;
+}
+
+.newspaper-paper {
+  stroke: rgba(104, 95, 83, 0.18);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
 .paper-piece {
   transform-box: fill-box;
   transform-origin: center 88%;
-  filter: drop-shadow(0 18px 18px rgba(116, 77, 44, 0.16));
+  filter: drop-shadow(0 18px 18px rgba(86, 76, 64, 0.13));
 }
 
 .paper-back {
-  opacity: 0.94;
+  opacity: 0.92;
 }
 
 .paper-wing {
-  opacity: 0.9;
+  opacity: 0.94;
 }
 
 .paper-front {
@@ -195,23 +224,7 @@ body.complete #bouquetCore {
 }
 
 #paperFrontWrap {
-  filter: drop-shadow(0 18px 20px rgba(92, 58, 37, 0.14));
-}
-
-
-
-.flower-neck {
-  fill: none;
-  stroke: url(#stemGradient);
-  stroke-width: 9;
-  stroke-linecap: round;
-  filter: drop-shadow(0 5px 5px rgba(50, 87, 52, 0.16));
-  opacity: 0;
-  animation: softAppear calc(0.45s * var(--animation-scale)) ease var(--delay) forwards;
-}
-
-.calyx-cover {
-  filter: drop-shadow(0 4px 5px rgba(49, 93, 62, 0.18));
+  filter: drop-shadow(0 18px 20px rgba(78, 67, 55, 0.12));
 }
 
 
@@ -288,7 +301,7 @@ body.complete #bouquetCore {
 }
 
   #bouquetSvg {
-  width: min(100%, 930px);
+  width: min(100%, 920px);
   height: auto;
   max-height: 96vh;
   display: block;
