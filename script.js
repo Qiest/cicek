@@ -2,13 +2,13 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const svg = document.getElementById('bouquetSvg');
 
 const STEM_START = 0.18;
-const LEAF_START = 1.18;
-const PAPER_START = 1.72;
-const RIBBON_START = 2.42;
-const FLOWER_START = 2.9;
-const FLOWER_GAP = 0.18;
-const PETAL_STEP = 0.031;
-const COMPLETE_AT = 11.2;
+const LEAF_START = 1.12;
+const PAPER_START = 1.6;
+const RIBBON_START = 2.28;
+const FLOWER_START = 2.78;
+const FLOWER_GAP = 0.125;
+const PETAL_STEP = 0.024;
+const COMPLETE_AT = 10.4;
 
 const palette = {
   leafDark: '#315d3e',
@@ -21,49 +21,40 @@ const palette = {
   paperA: '#ebe2d2',
   paperB: '#fffaf0',
   paperC: '#c7b9a4',
-  ink: '#756d62'
 };
 
-// Bu sürümün ana mantığı:
-// Her çiçeğin anchor noktası sapın bittiği noktadır.
-// Şakayık başı bu anchor'ın üstüne çizilir; sap ve çiçek ayrılmaz.
 const flowers = [
-  // Arkadaki üst sıra
-  { anchorX: 500, anchorY: 372, size: 0.82, rot: -2, base: '#f6b6c8', accent: '#d75f83', light: '#fff0f4', seed: 11 },
-  { anchorX: 418, anchorY: 408, size: 0.75, rot: -9, base: '#ffd0d8', accent: '#e4889b', light: '#fff7f3', seed: 22 },
-  { anchorX: 582, anchorY: 408, size: 0.75, rot: 9, base: '#f3a8bd', accent: '#c95578', light: '#ffe9ef', seed: 33 },
+  // 3 üst - üst sıra biraz büyütüldü
+  { anchorX: 448, anchorY: 358, size: 0.86, rot: -6, base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 11 },
+  { anchorX: 500, anchorY: 340, size: 0.92, rot: 0, base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 22 },
+  { anchorX: 552, anchorY: 358, size: 0.86, rot: 6, base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 33 },
 
-  // Orta dolgun sıra
-  { anchorX: 372, anchorY: 514, size: 0.86, rot: -12, base: '#ffe1df', accent: '#e0929e', light: '#fff8f1', seed: 44 },
-  { anchorX: 500, anchorY: 505, size: 1.08, rot: 0, base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 55 },
-  { anchorX: 628, anchorY: 514, size: 0.86, rot: 12, base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 66 },
+  // 4 orta - büyükler biraz küçültüldü, küçüklerle fark azaldı
+  { anchorX: 404, anchorY: 430, size: 0.91, rot: -9, base: '#ffd1d7', accent: '#e4889b', light: '#fff6f3', seed: 44 },
+  { anchorX: 466, anchorY: 414, size: 0.94, rot: -4, base: '#f7b7c8', accent: '#d65b82', light: '#fff0f4', seed: 55 },
+  { anchorX: 534, anchorY: 414, size: 0.94, rot: 4, base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 66 },
+  { anchorX: 596, anchorY: 430, size: 0.91, rot: 9, base: '#ef98ac', accent: '#bb4768', light: '#ffdee8', seed: 77 },
 
-  // Öne yakın sıra
-  { anchorX: 424, anchorY: 610, size: 0.84, rot: -7, base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 77 },
-  { anchorX: 576, anchorY: 610, size: 0.84, rot: 7, base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 88 },
-  { anchorX: 500, anchorY: 660, size: 0.72, rot: 2, base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 99 },
-
-  // Küçük denge çiçekleri; dışarı taşmasın diye içeri alındı.
-  { anchorX: 344, anchorY: 618, size: 0.60, rot: -10, base: '#fff0ef', accent: '#e0929e', light: '#fffaf5', seed: 111 },
-  { anchorX: 656, anchorY: 618, size: 0.60, rot: 10, base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 122 },
+  // 4 alt - alt sıra büyütüldü; buket daha dolu ve uyumlu
+  { anchorX: 376, anchorY: 510, size: 0.86, rot: -10, base: '#ffe1df', accent: '#e0929e', light: '#fff8f1', seed: 88 },
+  { anchorX: 442, anchorY: 494, size: 0.90, rot: -5, base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 99 },
+  { anchorX: 558, anchorY: 494, size: 0.90, rot: 5, base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 111 },
+  { anchorX: 624, anchorY: 510, size: 0.86, rot: 10, base: '#f3b0bf', accent: '#cc5f7c', light: '#ffe7ed', seed: 122 },
 ];
 
 const leafConfigs = [
-  { x: 408, y: 664, rot: -42, s: .92 },
-  { x: 592, y: 664, rot: 42, s: .92 },
-  { x: 382, y: 590, rot: -62, s: .78 },
-  { x: 618, y: 590, rot: 62, s: .78 },
-  { x: 458, y: 722, rot: -25, s: .72 },
-  { x: 542, y: 722, rot: 25, s: .72 },
-  { x: 452, y: 535, rot: -18, s: .58 },
-  { x: 548, y: 535, rot: 18, s: .58 },
-  { x: 468, y: 438, rot: -126, s: .52 },
-  { x: 532, y: 438, rot: 126, s: .52 },
+  { x: 416, y: 620, rot: -36, s: .78 },
+  { x: 584, y: 620, rot: 36, s: .78 },
+  { x: 402, y: 552, rot: -54, s: .62 },
+  { x: 598, y: 552, rot: 54, s: .62 },
+  { x: 458, y: 694, rot: -24, s: .62 },
+  { x: 542, y: 694, rot: 24, s: .62 },
+  { x: 462, y: 476, rot: -16, s: .48 },
+  { x: 538, y: 476, rot: 16, s: .48 },
 ];
 
 function el(type, attrs = {}, children = []) {
   const node = document.createElementNS(SVG_NS, type);
-
   Object.entries(attrs).forEach(([key, value]) => {
     if (key === 'style') {
       Object.entries(value).forEach(([styleKey, styleValue]) => {
@@ -74,7 +65,6 @@ function el(type, attrs = {}, children = []) {
       node.setAttribute(key, value);
     }
   });
-
   children.forEach(child => node.appendChild(child));
   return node;
 }
@@ -95,9 +85,7 @@ function hexToRgb(hex) {
 }
 
 function rgbToHex(r, g, b) {
-  return '#' + [r, g, b]
-    .map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0'))
-    .join('');
+  return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
 }
 
 function mix(a, b, amount) {
@@ -115,15 +103,11 @@ function createDefs() {
 
   defs.appendChild(el('filter', {
     id: 'softShadow', x: '-30%', y: '-30%', width: '160%', height: '170%'
-  }, [
-    el('feDropShadow', { dx: '0', dy: '11', stdDeviation: '10', 'flood-color': '#8e3659', 'flood-opacity': '0.17' })
-  ]));
+  }, [el('feDropShadow', { dx: '0', dy: '11', stdDeviation: '10', 'flood-color': '#8e3659', 'flood-opacity': '0.17' })]));
 
   defs.appendChild(el('filter', {
     id: 'leafShadow', x: '-30%', y: '-30%', width: '160%', height: '160%'
-  }, [
-    el('feDropShadow', { dx: '0', dy: '6', stdDeviation: '6', 'flood-color': '#315d3e', 'flood-opacity': '0.16' })
-  ]));
+  }, [el('feDropShadow', { dx: '0', dy: '6', stdDeviation: '6', 'flood-color': '#315d3e', 'flood-opacity': '0.16' })]));
 
   defs.appendChild(el('linearGradient', { id: 'stemGradient', x1: '0', y1: '0', x2: '1', y2: '1' }, [
     el('stop', { offset: '0%', 'stop-color': palette.stemLight }),
@@ -178,7 +162,7 @@ function curvedStemPath(startX, startY, endX, endY, bend) {
   const c1x = startX + bend * 0.12;
   const c1y = startY - 190;
   const c2x = endX - bend * 0.16;
-  const c2y = endY + 150;
+  const c2y = endY + 148;
   return `M ${startX} ${startY} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${endX} ${endY}`;
 }
 
@@ -188,7 +172,6 @@ function leafPath() {
 
 function makeLeaf(x, y, rot, s, delay) {
   const group = el('g', { transform: `translate(${x} ${y}) rotate(${rot}) scale(${s})` });
-
   group.appendChild(el('path', {
     class: 'leaf',
     d: leafPath(),
@@ -196,7 +179,6 @@ function makeLeaf(x, y, rot, s, delay) {
     filter: 'url(#leafShadow)',
     style: { '--delay': `${delay}s` }
   }));
-
   group.appendChild(el('path', {
     class: 'leaf-vein',
     d: 'M 0 -5 C 1 -35 0 -72 0 -108',
@@ -206,7 +188,6 @@ function makeLeaf(x, y, rot, s, delay) {
     'stroke-linecap': 'round',
     style: { '--delay': `${delay + .14}s` }
   }));
-
   return group;
 }
 
@@ -215,7 +196,6 @@ function petalPath(length, width, wobble) {
   const w = width;
   const notch = .92 + wobble * .13;
   const ruffle = .08 + wobble * .08;
-
   return [
     `M 0 9`,
     `C ${-w * .86} ${-l * .14}, ${-w * .92} ${-l * .54}, ${-w * .42} ${-l * .82}`,
@@ -231,7 +211,6 @@ function petalHighlightPath(length, width) {
 }
 
 function makeCalyx(delay) {
-  // Çiçeğin sapla birleştiği yer: local origin yani anchor noktası.
   const group = el('g', { class: 'calyx' });
 
   group.appendChild(el('path', {
@@ -273,29 +252,27 @@ function createPeony(config, index, delay) {
     filter: 'url(#softShadow)'
   });
 
-  // Önce sapın ucundaki yeşil çanak çizilir.
-  group.appendChild(makeCalyx(delay - .15));
+  group.appendChild(makeCalyx(delay - .14));
 
-  // Çiçek başı çanağın ÜSTÜNE kurulur.
   const bloom = el('g', { transform: 'translate(0 -62)' });
 
   for (let d = 0; d < 12; d++) {
     const angle = (360 / 12) * d + rand() * 10;
-    const radius = 24 + rand() * 34;
+    const radius = 24 + rand() * 30;
     bloom.appendChild(el('circle', {
       class: 'construct-dot',
       cx: (Math.cos(angle * Math.PI / 180) * radius).toFixed(2),
       cy: (Math.sin(angle * Math.PI / 180) * radius).toFixed(2),
-      r: (1.5 + rand() * 1.5).toFixed(2),
-      style: { '--delay': `${delay - .15 + d * .014}s` }
+      r: (1.4 + rand() * 1.4).toFixed(2),
+      style: { '--delay': `${delay - .14 + d * .014}s` }
     }));
   }
 
   const rings = [
-    { count: 16, radius: 22, length: 86, width: 38, jitter: 8, yOffset: 5 },
-    { count: 14, radius: 10, length: 70, width: 30, jitter: 10, yOffset: 0 },
-    { count: 12, radius: 1, length: 54, width: 23, jitter: 13, yOffset: -3 },
-    { count: 8, radius: -4, length: 38, width: 16, jitter: 16, yOffset: -5 }
+    { count: 19, radius: 22, length: 88, width: 38, jitter: 7, yOffset: 4 },
+    { count: 17, radius: 10, length: 72, width: 30, jitter: 9, yOffset: -1 },
+    { count: 14, radius: 2, length: 55, width: 23, jitter: 11, yOffset: -4 },
+    { count: 10, radius: -4, length: 38, width: 16, jitter: 14, yOffset: -6 }
   ];
 
   let petalNumber = 0;
@@ -304,10 +281,10 @@ function createPeony(config, index, delay) {
     for (let i = 0; i < ring.count; i++) {
       const baseAngle = (360 / ring.count) * i + ringIndex * 13;
       const angle = baseAngle + (rand() - .5) * ring.jitter;
-      const length = ring.length * (.9 + rand() * .18);
-      const width = ring.width * (.86 + rand() * .2);
-      const radius = ring.radius + (rand() - .5) * 5;
-      const delayValue = delay + petalNumber * PETAL_STEP + ringIndex * .08;
+      const length = ring.length * (.92 + rand() * .14);
+      const width = ring.width * (.88 + rand() * .18);
+      const radius = ring.radius + (rand() - .5) * 4;
+      const delayValue = delay + petalNumber * PETAL_STEP + ringIndex * .07;
 
       const wrapper = el('g', {
         transform: `rotate(${angle.toFixed(2)}) translate(0 ${(-radius + ring.yOffset).toFixed(2)})`
@@ -320,7 +297,7 @@ function createPeony(config, index, delay) {
         style: { '--delay': `${delayValue}s` }
       }));
 
-      if (rand() > .42) {
+      if (rand() > .45) {
         wrapper.appendChild(el('path', {
           class: 'petal-highlight',
           d: petalHighlightPath(length, width),
@@ -333,17 +310,15 @@ function createPeony(config, index, delay) {
     }
   });
 
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 10; i++) {
     const angle = i * 45 + rand() * 16;
-    const wrapper = el('g', { transform: `rotate(${angle}) translate(0 ${-6 - rand() * 6})` });
-
+    const wrapper = el('g', { transform: `rotate(${angle}) translate(0 ${-6 - rand() * 5})` });
     wrapper.appendChild(el('path', {
       class: 'petal inner',
-      d: petalPath(25 + rand() * 7, 9 + rand() * 4, rand()),
+      d: petalPath(23 + rand() * 6, 9 + rand() * 4, rand()),
       fill: `url(#petalGrad-${index}-3)`,
       style: { '--delay': `${delay + petalNumber * PETAL_STEP + i * .014}s` }
     }));
-
     bloom.appendChild(wrapper);
   }
 
@@ -356,21 +331,21 @@ function makePaperBack(delay) {
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-back newspaper-paper',
-    d: 'M 248 566 C 330 626 420 704 500 790 C 580 704 670 626 752 566 C 738 742 682 944 602 1072 C 565 1092 526 1106 500 1110 C 474 1106 435 1092 398 1072 C 318 944 262 742 248 566 Z',
+    d: 'M 258 580 C 340 634 422 704 500 786 C 578 704 660 634 742 580 C 736 744 682 944 602 1070 C 565 1092 526 1106 500 1110 C 474 1106 435 1092 398 1070 C 318 944 264 744 250 574 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-wing newspaper-paper',
-    d: 'M 248 570 C 318 622 392 704 474 824 C 382 798 300 752 224 696 C 210 648 222 598 248 570 Z',
+    d: 'M 250 578 C 320 626 392 704 472 818 C 382 794 300 750 226 698 C 212 650 224 602 250 578 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + .1}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-wing newspaper-paper',
-    d: 'M 752 570 C 682 622 608 704 526 824 C 618 798 700 752 776 696 C 790 648 778 598 752 570 Z',
+    d: 'M 750 578 C 680 626 608 704 528 818 C 618 794 700 750 774 698 C 788 650 776 602 750 578 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + .14}s` }
   }));
@@ -378,54 +353,160 @@ function makePaperBack(delay) {
   return group;
 }
 
-function addNewsLines(group, delay, side) {
-  for (let i = 0; i < 9; i++) {
-    const y = 708 + i * 18;
-    const x1 = side === 'left' ? 304 + (i % 3) * 9 : 548 + (i % 3) * 7;
-    const x2 = side === 'left' ? 458 - (i % 2) * 16 : 708 - (i % 2) * 14;
+function makeNewspaperText(x, y, text, size, delay, extra = {}) {
+  return el('text', {
+    class: extra.className || 'news-text',
+    x,
+    y,
+    'font-size': size,
+    'font-family': 'Georgia, Times New Roman, serif',
+    'font-weight': extra.weight || '500',
+    'letter-spacing': extra.spacing || '0',
+    fill: extra.fill || 'rgba(70,64,56,.46)',
+    transform: extra.transform || '',
+    style: { '--delay': `${delay}s` }
+  }, [document.createTextNode(text)]);
+}
+
+function makeNewsRule(x1, y1, x2, y2, delay, opacity = .32, width = 1.2) {
+  return el('path', {
+    class: 'news-detail',
+    d: `M ${x1} ${y1} L ${x2} ${y2}`,
+    fill: 'none',
+    stroke: `rgba(72,65,56,${opacity})`,
+    'stroke-width': width,
+    'stroke-linecap': 'round',
+    style: { '--delay': `${delay}s` }
+  });
+}
+
+function makeNewsColumn(group, x, y, width, rows, delay, side = 'left') {
+  for (let i = 0; i < rows; i++) {
+    const lineY = y + i * 9.2;
+    const trim = (i % 4) * 8 + (i % 3) * 3;
+    const endX = x + width - trim;
 
     group.appendChild(el('path', {
-      class: 'news-line',
-      d: `M ${x1} ${y} C ${(x1 + x2) / 2} ${y + 8}, ${(x1 + x2) / 2} ${y - 5}, ${x2} ${y + 2}`,
+      class: 'news-detail',
+      d: `M ${x} ${lineY} L ${endX} ${lineY}`,
       fill: 'none',
-      stroke: 'rgba(90,82,72,.28)',
-      'stroke-width': i % 3 === 0 ? '2.05' : '1.28',
+      stroke: 'rgba(70,64,56,.31)',
+      'stroke-width': i % 5 === 0 ? '1.35' : '0.82',
       'stroke-linecap': 'round',
-      style: { '--delay': `${delay + .5 + i * .045}s` }
+      style: { '--delay': `${delay + i * .026}s` }
+    }));
+  }
+
+  // Küçük haber kutusu / fotoğraf alanı gibi dursun.
+  group.appendChild(el('rect', {
+    class: 'news-detail',
+    x: side === 'left' ? x + 8 : x + width - 52,
+    y: y + rows * 9.2 + 8,
+    width: 42,
+    height: 28,
+    rx: 2,
+    fill: 'rgba(83,75,65,.08)',
+    stroke: 'rgba(70,64,56,.26)',
+    'stroke-width': '1',
+    style: { '--delay': `${delay + rows * .028}s` }
+  }));
+
+  for (let i = 0; i < 3; i++) {
+    group.appendChild(el('path', {
+      class: 'news-detail',
+      d: `M ${side === 'left' ? x + 58 : x} ${y + rows * 9.2 + 12 + i * 7} L ${side === 'left' ? x + width - 6 : x + width - 58} ${y + rows * 9.2 + 12 + i * 7}`,
+      fill: 'none',
+      stroke: 'rgba(70,64,56,.25)',
+      'stroke-width': '.78',
+      'stroke-linecap': 'round',
+      style: { '--delay': `${delay + rows * .028 + i * .03}s` }
     }));
   }
 }
+
+function addNewspaperDetails(group, delay) {
+  // Sol sayfa başlığı
+  group.appendChild(makeNewspaperText(318, 710, 'THE DAILY', 13, delay + .38, {
+    weight: '700',
+    spacing: '.12em',
+    fill: 'rgba(61,55,49,.48)'
+  }));
+  group.appendChild(makeNewspaperText(318, 727, 'BLOOM', 21, delay + .43, {
+    weight: '800',
+    spacing: '.08em',
+    fill: 'rgba(61,55,49,.52)'
+  }));
+  group.appendChild(makeNewsRule(318, 735, 456, 735, delay + .48, .36, 1.4));
+
+  // Sağ sayfa başlığı
+  group.appendChild(makeNewspaperText(552, 714, 'FLOWER', 18, delay + .41, {
+    weight: '800',
+    spacing: '.08em',
+    fill: 'rgba(61,55,49,.48)'
+  }));
+  group.appendChild(makeNewspaperText(552, 731, 'EDITION', 12, delay + .46, {
+    weight: '700',
+    spacing: '.16em',
+    fill: 'rgba(61,55,49,.42)'
+  }));
+  group.appendChild(makeNewsRule(552, 739, 698, 739, delay + .5, .34, 1.3));
+
+  // Sayfa kolonları
+  makeNewsColumn(group, 318, 752, 62, 10, delay + .56, 'left');
+  makeNewsColumn(group, 392, 752, 64, 10, delay + .62, 'left');
+  makeNewsColumn(group, 552, 756, 66, 10, delay + .58, 'right');
+  makeNewsColumn(group, 632, 756, 66, 10, delay + .64, 'right');
+
+  // Orta kat yeri / sayfa ayrımı
+  group.appendChild(makeNewsRule(500, 746, 500, 1048, delay + .52, .18, 1.6));
+
+  // Aşağıdaki daha küçük metin blokları
+  makeNewsColumn(group, 354, 900, 92, 8, delay + .92, 'left');
+  makeNewsColumn(group, 556, 900, 92, 8, delay + .96, 'right');
+
+  // Hafif tarih/sayı detayı
+  group.appendChild(makeNewspaperText(395, 873, 'No. 11', 9, delay + .86, {
+    weight: '700',
+    fill: 'rgba(61,55,49,.36)'
+  }));
+  group.appendChild(makeNewspaperText(565, 873, 'SPECIAL', 9, delay + .88, {
+    weight: '700',
+    spacing: '.1em',
+    fill: 'rgba(61,55,49,.34)'
+  }));
+}
+
 
 function makePaperFront(delay) {
   const group = el('g', { id: 'paperFrontLayer' });
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-front newspaper-paper',
-    d: 'M 282 642 C 366 720 438 804 500 898 C 562 804 634 720 718 642 C 698 812 654 980 590 1080 C 555 1098 524 1108 500 1112 C 476 1108 445 1098 410 1080 C 346 980 302 812 282 642 Z',
+    d: 'M 294 654 C 374 726 442 806 500 896 C 558 806 626 726 706 654 C 692 814 650 980 590 1080 C 554 1098 523 1108 500 1112 C 477 1108 446 1098 410 1080 C 350 980 308 814 290 648 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay + .18}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 282 642 C 360 716 430 802 500 898 C 442 878 382 832 306 776 C 290 732 281 688 282 642 Z',
+    d: 'M 290 648 C 366 718 434 802 500 896 C 444 878 386 834 314 780 C 298 736 289 692 290 648 Z',
     fill: 'rgba(255,255,255,.28)',
     style: { '--delay': `${delay + .32}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 718 642 C 640 716 570 802 500 898 C 558 878 618 832 694 776 C 710 732 719 688 718 642 Z',
+    d: 'M 710 648 C 634 718 566 802 500 896 C 556 878 614 834 686 780 C 702 736 711 692 710 648 Z',
     fill: 'rgba(92,83,72,.11)',
     style: { '--delay': `${delay + .36}s` }
   }));
 
   const folds = [
-    'M 356 700 C 405 782 439 905 420 1040',
-    'M 644 700 C 595 782 561 905 580 1040',
-    'M 500 898 C 500 960 500 1020 500 1095',
-    'M 326 690 C 400 765 448 828 500 898',
-    'M 674 690 C 600 765 552 828 500 898'
+    'M 360 706 C 407 784 438 904 422 1040',
+    'M 640 706 C 593 784 562 904 578 1040',
+    'M 500 896 C 500 958 500 1018 500 1095',
+    'M 330 696 C 400 768 446 828 500 896',
+    'M 670 696 C 600 768 554 828 500 896'
   ];
 
   folds.forEach((d, i) => {
@@ -440,14 +521,13 @@ function makePaperFront(delay) {
     }));
   });
 
-  addNewsLines(group, delay, 'left');
-  addNewsLines(group, delay, 'right');
+  addNewspaperDetails(group, delay);
 
   return group;
 }
 
 function makeRibbon(delay) {
-  const group = el('g', { transform: 'translate(500 872)' });
+  const group = el('g', { transform: 'translate(500 874)' });
 
   group.appendChild(el('path', {
     class: 'bow-piece',
@@ -478,8 +558,8 @@ function makeRibbon(delay) {
 
 function makeSparkles(layer) {
   const points = [
-    [300, 300, .55], [700, 306, .55], [262, 520, .45], [738, 520, .45],
-    [405, 205, .42], [595, 205, .42], [500, 218, .48], [500, 724, .38]
+    [350, 300, .45], [650, 300, .45], [280, 510, .38], [720, 510, .38],
+    [430, 250, .35], [570, 250, .35], [500, 690, .32]
   ];
 
   points.forEach(([x, y, s], i) => {
@@ -488,11 +568,9 @@ function makeSparkles(layer) {
       transform: `translate(${x} ${y}) scale(${s})`,
       style: { '--delay': `${COMPLETE_AT + i * .16}s` }
     });
-
     g.appendChild(el('path', {
       d: 'M0 -18 C4 -7 7 -4 18 0 C7 4 4 7 0 18 C-4 7 -7 4 -18 0 C-7 -4 -4 -7 0 -18Z'
     }));
-
     layer.appendChild(g);
   });
 }
@@ -515,26 +593,25 @@ function buildBouquet() {
   const baseX = 500;
   const baseY = 1014;
 
-  // Paper arkada; saplar üstünden büyür; ön paper sapların altını toplar.
   paperBackLayer.appendChild(makePaperBack(PAPER_START));
 
   flowers.forEach((flower, i) => {
-    const startX = baseX + (i - 5) * 4.4;
-    const bend = (flower.anchorX - baseX) * .36;
+    const startX = baseX + (i - 5) * 4.2;
+    const bend = (flower.anchorX - baseX) * .34;
     const path = curvedStemPath(startX, baseY + (i % 3) * 6, flower.anchorX, flower.anchorY, bend);
 
     stemsLayer.appendChild(el('path', {
       class: 'stem-shadow',
       d: path,
       pathLength: '1',
-      style: { '--delay': `${STEM_START + i * .045}s` }
+      style: { '--delay': `${STEM_START + i * .043}s` }
     }));
 
     stemsLayer.appendChild(el('path', {
       class: 'stem',
       d: path,
       pathLength: '1',
-      style: { '--delay': `${STEM_START + i * .045}s` }
+      style: { '--delay': `${STEM_START + i * .043}s` }
     }));
   });
 
@@ -545,10 +622,9 @@ function buildBouquet() {
   paperFrontLayer.appendChild(makePaperFront(PAPER_START + .2));
   ribbonLayer.appendChild(makeRibbon(RIBBON_START));
 
-  // Arkadaki üst çiçekler önce, öndekiler sonra çizilir.
   flowers
     .map((f, index) => ({ ...f, originalIndex: index }))
-    .sort((a, b) => (a.anchorY + a.size * 100) - (b.anchorY + b.size * 100))
+    .sort((a, b) => a.anchorY - b.anchorY)
     .forEach((flower, order) => {
       const delay = FLOWER_START + order * FLOWER_GAP;
       flowerLayer.appendChild(createPeony(flower, flower.originalIndex, delay));

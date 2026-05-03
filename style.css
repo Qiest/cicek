@@ -1,290 +1,172 @@
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-  overflow: hidden;
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%}
+body{
+  min-height:100vh;
+  min-height:100svh;
+  min-height:100dvh;
+  overflow:hidden;
   background:
-    radial-gradient(circle at 18% 12%, rgba(255, 204, 219, 0.92) 0 15%, transparent 36%),
-    radial-gradient(circle at 82% 20%, rgba(255, 244, 211, 0.88) 0 16%, transparent 38%),
-    linear-gradient(145deg, #fffaf2 0%, #ffe8ef 46%, #ffd3df 100%);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    radial-gradient(circle at 18% 12%, rgba(255, 204, 219, .9) 0 16%, transparent 36%),
+    radial-gradient(circle at 82% 18%, rgba(255, 244, 211, .88) 0 17%, transparent 38%),
+    linear-gradient(145deg,#fffaf2 0%,#ffe8ef 46%,#ffd3df 100%);
+  font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.page{
+  width:100%;
+  min-height:100vh;
+  min-height:100svh;
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:8px;
+}
+#bouquetSvg{
+  width:min(104vw,930px);
+  height:auto;
+  max-height:98dvh;
+  display:block;
+  overflow:visible;
+}
+#bouquetCore{transform-origin:500px 900px}
+body.complete #bouquetCore{animation:bouquetBreath 5.8s ease-in-out infinite}
+
+.stem,.stem-shadow{
+  fill:none;
+  stroke-linecap:round;
+  pathLength:1;
+  stroke-dasharray:1;
+  stroke-dashoffset:1;
+  opacity:0;
+  animation:growStem 1.08s cubic-bezier(.22,.8,.22,1) var(--delay) forwards;
+}
+.stem{
+  stroke:url(#stemGradient);
+  stroke-width:8.4;
+  filter:drop-shadow(0 5px 6px rgba(48,83,46,.16));
+}
+.stem-shadow{
+  stroke:rgba(63,62,42,.08);
+  stroke-width:12.5;
+}
+.leaf,.calyx-part,.paper-piece,.paper-line,.news-line,.ribbon-piece,.knot,.bow-piece{
+  opacity:0;
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:pieceArrive .72s cubic-bezier(.18,.86,.24,1.12) var(--delay) forwards;
+}
+.leaf-vein{
+  opacity:0;
+  animation:softAppear .55s ease var(--delay) forwards;
+}
+.peony{
+  transform-box:view-box;
+  transform-origin:center;
+}
+.petal{
+  opacity:0;
+  transform-box:fill-box;
+  transform-origin:50% 92%;
+  stroke:rgba(134,47,80,.12);
+  stroke-width:.52;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 6px 7px rgba(145,58,90,.15));
+  animation:bloomPetal .68s cubic-bezier(.18,.9,.2,1.08) var(--delay) forwards;
+}
+.petal.inner{filter:drop-shadow(0 3px 4px rgba(145,58,90,.1))}
+.petal-highlight{
+  opacity:0;
+  fill:none;
+  stroke:rgba(255,255,255,.42);
+  stroke-width:1.02;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+  animation:softAppear .48s ease var(--delay) forwards;
+}
+.construct-dot{
+  opacity:0;
+  fill:rgba(255,255,255,.95);
+  filter:drop-shadow(0 0 8px rgba(255,146,187,.82));
+  animation:dotSpark .68s ease-out var(--delay) forwards;
+}
+.newspaper-paper{
+  stroke:rgba(92,84,73,.18);
+  stroke-width:1.1;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 18px 24px rgba(71,62,52,.13));
+}
+.paper-back{opacity:.94}
+.paper-wing{opacity:.95}
+.paper-front{opacity:.97}
+.paper-fold{filter:none}
+.paper-line,.news-line,.news-text,.news-detail{
+  opacity:0;
+  animation:softAppear .62s ease var(--delay) forwards;
+}
+#paperFrontLayer{filter:drop-shadow(0 20px 24px rgba(72,61,50,.12))}
+.sparkle{
+  opacity:0;
+  fill:rgba(255,255,255,.92);
+  filter:drop-shadow(0 0 12px rgba(255,156,190,.75));
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:twinkle 2.7s ease-in-out var(--delay) infinite;
+}
+@keyframes growStem{
+  from{opacity:0;stroke-dashoffset:1}
+  to{opacity:1;stroke-dashoffset:0}
+}
+@keyframes pieceArrive{
+  0%{opacity:0;transform:scale(.08) rotate(-6deg)}
+  70%{opacity:1;transform:scale(1.05) rotate(1deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes bloomPetal{
+  0%{opacity:0;transform:scale(.06) rotate(-10deg)}
+  68%{opacity:.98;transform:scale(1.05) rotate(1.2deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes softAppear{from{opacity:0}to{opacity:1}}
+@keyframes dotSpark{
+  0%{opacity:0;transform:scale(.35)}
+  32%{opacity:1;transform:scale(1.24)}
+  100%{opacity:0;transform:scale(.1)}
+}
+@keyframes twinkle{
+  0%,100%{opacity:.08;transform:scale(.7) rotate(0deg)}
+  45%{opacity:1;transform:scale(1.22) rotate(20deg)}
+}
+@keyframes bouquetBreath{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-7px) scale(1.01)}
+}
+@media (max-width:520px){
+  .page{padding:2px}
+  #bouquetSvg{width:122vw;max-height:98dvh}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
 }
 
-.page {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: 8px;
-}
 
-#bouquetSvg {
-  width: min(100vw, 900px);
-  height: auto;
-  max-height: 98dvh;
-  display: block;
-  overflow: visible;
-}
-
-#bouquetCore {
-  transform-origin: 500px 890px;
-}
-
-body.complete #bouquetCore {
-  animation: bouquetBreath 5.8s ease-in-out infinite;
-}
-
-/* ---------- Animation base ---------- */
-
-.stem,
-.stem-shadow {
-  fill: none;
-  stroke-linecap: round;
-  pathLength: 1;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+.news-text {
   opacity: 0;
-  animation: growStem 1.18s cubic-bezier(.22,.8,.22,1) var(--delay) forwards;
+  user-select: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: softAppear .7s ease var(--delay) forwards;
 }
 
-.stem {
-  stroke: url(#stemGradient);
-  stroke-width: 8.5;
-  filter: drop-shadow(0 5px 6px rgba(48, 83, 46, 0.16));
-}
-
-.stem-shadow {
-  stroke: rgba(63, 62, 42, 0.08);
-  stroke-width: 13;
-}
-
-.leaf,
-.calyx-part,
-.paper-piece,
-.paper-line,
-.news-line,
-.ribbon-piece,
-.knot,
-.bow-piece {
+.news-detail {
   opacity: 0;
   transform-box: fill-box;
   transform-origin: center;
-  animation: pieceArrive .78s cubic-bezier(.18,.86,.24,1.14) var(--delay) forwards;
+  animation: softAppear .68s ease var(--delay) forwards;
 }
-
-.leaf-vein {
-  opacity: 0;
-  animation: softAppear .58s ease var(--delay) forwards;
-}
-
-.peony {
-  transform-box: view-box;
-  transform-origin: center;
-}
-
-.petal {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: 50% 92%;
-  stroke: rgba(134, 47, 80, 0.13);
-  stroke-width: .55;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 5px 6px rgba(145, 58, 90, .13));
-  animation: bloomPetal .72s cubic-bezier(.18,.9,.2,1.08) var(--delay) forwards;
-}
-
-.petal.inner {
-  filter: drop-shadow(0 3px 4px rgba(145, 58, 90, .1));
-}
-
-.petal-highlight {
-  opacity: 0;
-  fill: none;
-  stroke: rgba(255,255,255,.43);
-  stroke-width: 1.05;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  animation: softAppear .5s ease var(--delay) forwards;
-}
-
-.construct-dot {
-  opacity: 0;
-  fill: rgba(255,255,255,.95);
-  filter: drop-shadow(0 0 8px rgba(255, 146, 187, .82));
-  animation: dotSpark .72s ease-out var(--delay) forwards;
-}
-
-/* ---------- Newspaper wrap ---------- */
 
 .newspaper-paper {
-  stroke: rgba(92, 84, 73, 0.18);
-  stroke-width: 1.1;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 18px 24px rgba(71, 62, 52, .13));
-}
-
-.paper-back {
-  opacity: .94;
-}
-
-.paper-wing {
-  opacity: .95;
-}
-
-.paper-front {
-  opacity: .97;
-}
-
-.paper-fold {
-  filter: none;
-}
-
-.paper-line,
-.news-line {
-  opacity: 0;
-  animation: softAppear .65s ease var(--delay) forwards;
-}
-
-#paperFrontLayer {
-  filter: drop-shadow(0 20px 24px rgba(72, 61, 50, .12));
-}
-
-/* ---------- Extras ---------- */
-
-.sparkle {
-  opacity: 0;
-  fill: rgba(255,255,255,.92);
-  filter: drop-shadow(0 0 12px rgba(255, 156, 190, .75));
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: twinkle 2.7s ease-in-out var(--delay) infinite;
-}
-
-/* ---------- Keyframes ---------- */
-
-@keyframes growStem {
-  from {
-    opacity: 0;
-    stroke-dashoffset: 1;
-  }
-
-  to {
-    opacity: 1;
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes pieceArrive {
-  0% {
-    opacity: 0;
-    transform: scale(.08) rotate(-7deg);
-  }
-
-  70% {
-    opacity: 1;
-    transform: scale(1.06) rotate(1deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-@keyframes bloomPetal {
-  0% {
-    opacity: 0;
-    transform: scale(.06) rotate(-12deg);
-  }
-
-  68% {
-    opacity: .98;
-    transform: scale(1.06) rotate(1.5deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-}
-
-@keyframes softAppear {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes dotSpark {
-  0% {
-    opacity: 0;
-    transform: scale(.35);
-  }
-
-  32% {
-    opacity: 1;
-    transform: scale(1.28);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(.1);
-  }
-}
-
-@keyframes twinkle {
-  0%, 100% {
-    opacity: .08;
-    transform: scale(.7) rotate(0deg);
-  }
-
-  45% {
-    opacity: 1;
-    transform: scale(1.22) rotate(20deg);
-  }
-}
-
-@keyframes bouquetBreath {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    transform: translateY(-7px) scale(1.01);
-  }
-}
-
-@media (max-width: 520px) {
-  .page {
-    padding: 2px;
-  }
-
-  #bouquetSvg {
-    width: 116vw;
-    max-height: 98dvh;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
+  fill-opacity: .98;
 }
