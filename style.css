@@ -1,0 +1,305 @@
+:root {
+  --cream: #fff7ef;
+  --blush: #ffe4ea;
+  --rose: #d85f82;
+  --deep-rose: #9f3157;
+  --leaf: #54764e;
+  --ink: #5a2640;
+  --shadow: rgba(117, 42, 73, 0.22);
+  --animation-scale: 1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 214, 227, 0.95) 0 16%, transparent 35%),
+    radial-gradient(circle at 82% 10%, rgba(255, 244, 218, 0.95) 0 14%, transparent 34%),
+    linear-gradient(145deg, #fffaf3 0%, #ffeef2 44%, #ffd9e4 100%);
+}
+
+.page-shell {
+  width: min(1120px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(12px, 2.5vw, 26px);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.bouquet-stage {
+  position: relative;
+  width: min(100%, 960px);
+  min-height: min(96vh, 980px);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(8px);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.glow-one {
+  width: min(68vw, 620px);
+  height: min(68vw, 620px);
+  background: radial-gradient(circle, rgba(255, 197, 213, 0.82), transparent 66%);
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.glow-two {
+  width: min(50vw, 410px);
+  height: min(50vw, 410px);
+  background: radial-gradient(circle, rgba(255, 249, 217, 0.82), transparent 68%);
+  bottom: 6%;
+  right: 8%;
+}
+
+#bouquetSvg {
+  width: min(100%, 930px);
+  height: auto;
+  max-height: 96vh;
+  display: block;
+  overflow: visible;
+  z-index: 1;
+}
+
+#bouquetCore {
+  transform-origin: 500px 920px;
+}
+
+body.complete #bouquetCore {
+  animation: bouquetBreath 5.8s ease-in-out infinite;
+}
+
+.stem {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 9;
+  stroke: url(#stemGradient);
+  pathLength: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 6px 7px rgba(62, 103, 67, 0.18));
+  animation: growStem calc(1.25s * var(--animation-scale)) cubic-bezier(.22,.8,.22,1) var(--delay) forwards;
+}
+
+.stem-shadow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 14;
+  stroke: rgba(81, 86, 54, 0.08);
+  opacity: 0;
+  pathLength: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: growStem calc(1.25s * var(--animation-scale)) cubic-bezier(.22,.8,.22,1) var(--delay) forwards;
+}
+
+.leaf,
+.sepal,
+.paper-piece,
+.paper-line,
+.ribbon-piece,
+.knot,
+.bow-piece {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center center;
+  animation: leafArrive calc(0.82s * var(--animation-scale)) cubic-bezier(.2,.86,.25,1.18) var(--delay) forwards;
+}
+
+.leaf-vein,
+.paper-line {
+  opacity: 0;
+  animation: softAppear calc(0.7s * var(--animation-scale)) ease var(--delay) forwards;
+}
+
+.peony {
+  transform-box: view-box;
+  transform-origin: center center;
+}
+
+.petal {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 92%;
+  stroke: rgba(137, 49, 83, 0.12);
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 6px 7px rgba(151, 61, 91, 0.13));
+  animation: bloomPetal calc(0.78s * var(--animation-scale)) cubic-bezier(.19,.9,.2,1.05) var(--delay) forwards;
+}
+
+.petal.inner {
+  filter: drop-shadow(0 4px 5px rgba(151, 61, 91, 0.11));
+}
+
+.petal-highlight {
+  opacity: 0;
+  fill: none;
+  stroke: rgba(255,255,255,0.42);
+  stroke-linecap: round;
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+  animation: softAppear calc(0.65s * var(--animation-scale)) ease var(--delay) forwards;
+}
+
+.construct-dot {
+  opacity: 0;
+  fill: rgba(255, 252, 246, 0.95);
+  filter: drop-shadow(0 0 8px rgba(255, 154, 188, 0.82));
+  animation: dotSpark calc(0.95s * var(--animation-scale)) ease-out var(--delay) forwards;
+}
+
+
+.paper-piece {
+  transform-box: fill-box;
+  transform-origin: center 88%;
+  filter: drop-shadow(0 18px 18px rgba(116, 77, 44, 0.16));
+}
+
+.paper-back {
+  opacity: 0.94;
+}
+
+.paper-wing {
+  opacity: 0.9;
+}
+
+.paper-front {
+  opacity: 0.96;
+}
+
+.paper-fold {
+  filter: none;
+}
+
+#paperFrontWrap {
+  filter: drop-shadow(0 18px 20px rgba(92, 58, 37, 0.14));
+}
+
+
+
+.flower-neck {
+  fill: none;
+  stroke: url(#stemGradient);
+  stroke-width: 9;
+  stroke-linecap: round;
+  filter: drop-shadow(0 5px 5px rgba(50, 87, 52, 0.16));
+  opacity: 0;
+  animation: softAppear calc(0.45s * var(--animation-scale)) ease var(--delay) forwards;
+}
+
+.calyx-cover {
+  filter: drop-shadow(0 4px 5px rgba(49, 93, 62, 0.18));
+}
+
+
+.sparkle {
+  opacity: 0;
+  fill: rgba(255,255,255,0.92);
+  filter: drop-shadow(0 0 12px rgba(255, 161, 194, 0.75));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle 2.7s ease-in-out var(--delay) infinite;
+}
+
+@keyframes introFade {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes growStem {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes leafArrive {
+  0% { opacity: 0; transform: scale(0.08) rotate(-8deg); }
+  68% { opacity: 1; transform: scale(1.08) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes bloomPetal {
+  0% { opacity: 0; transform: scale(0.06) rotate(-13deg); }
+  65% { opacity: 0.98; transform: scale(1.07) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes softAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dotSpark {
+  0% { opacity: 0; transform: scale(0.4); }
+  26% { opacity: 1; transform: scale(1.28); }
+  100% { opacity: 0; transform: scale(0.12); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.08; transform: scale(0.7) rotate(0deg); }
+  45% { opacity: 1; transform: scale(1.22) rotate(22deg); }
+}
+
+@keyframes bouquetBreath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.012); }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+  width: min(1120px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: clamp(12px, 2.5vw, 26px);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+    .bouquet-stage {
+  position: relative;
+  width: min(100%, 960px);
+  min-height: min(96vh, 980px);
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+  #bouquetSvg {
+  width: min(100%, 930px);
+  height: auto;
+  max-height: 96vh;
+  display: block;
+  overflow: visible;
+  z-index: 1;
+}
+
+  @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
