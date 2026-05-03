@@ -41,8 +41,8 @@ body {
 
 .bouquet-stage {
   position: relative;
-  width: min(100%, 960px);
-  min-height: min(96vh, 980px);
+  width: min(100%, 980px);
+  min-height: min(97vh, 1000px);
   display: grid;
   place-items: center;
   isolation: isolate;
@@ -75,9 +75,9 @@ body {
 }
 
 #bouquetSvg {
-  width: min(100%, 920px);
+  width: min(104%, 960px);
   height: auto;
-  max-height: 96vh;
+  max-height: 97vh;
   display: block;
   overflow: visible;
   z-index: 1;
@@ -94,7 +94,7 @@ body.complete #bouquetCore {
 .stem {
   fill: none;
   stroke-linecap: round;
-  stroke-width: 9;
+  stroke-width: 9.5;
   stroke: url(#stemGradient);
   pathLength: 1;
   stroke-dasharray: 1;
@@ -293,17 +293,17 @@ body.complete #bouquetCore {
 
     .bouquet-stage {
   position: relative;
-  width: min(100%, 960px);
-  min-height: min(96vh, 980px);
+  width: min(100%, 980px);
+  min-height: min(97vh, 1000px);
   display: grid;
   place-items: center;
   isolation: isolate;
 }
 
   #bouquetSvg {
-  width: min(100%, 920px);
+  width: min(104%, 960px);
   height: auto;
-  max-height: 96vh;
+  max-height: 97vh;
   display: block;
   overflow: visible;
   z-index: 1;

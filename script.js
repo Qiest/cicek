@@ -31,30 +31,32 @@ const palette = {
 
 // 11 şakayık burada. Pozisyon, boyut ve renkleri buradan değiştirilebilir.
 const flowers = [
-  // 3 büyük merkez
-  { x: 500, y: 382, size: 1.18, rot: -2,  base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 11 },
-  { x: 415, y: 438, size: 1.04, rot: -8,  base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 22 },
-  { x: 585, y: 438, size: 1.04, rot: 8,   base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 33 },
+  // Burada her çiçek kendi sap bitiş noktasına kilitli.
+  // x: çiçeğin merkezi
+  // y: çiçeğin merkezi
+  // stemEndY: sapın biteceği yer; çanak yaprak da buraya oturur.
+  // Böylece çiçek ayrı, dal ayrı görünmez.
+  { x: 500, y: 388, stemEndY: 522, size: 1.22, rot: -2,  base: '#f4a7ba', accent: '#d75f83', light: '#ffe4ec', seed: 11 },
+  { x: 418, y: 444, stemEndY: 563, size: 1.06, rot: -7,  base: '#f7c0cb', accent: '#d66b88', light: '#fff0f1', seed: 22 },
+  { x: 582, y: 444, stemEndY: 563, size: 1.06, rot: 7,   base: '#f0a1b0', accent: '#c94e73', light: '#ffe0e5', seed: 33 },
 
-  // 4 orta çevre
-  { x: 382, y: 340, size: 0.88, rot: -12, base: '#ffd1d7', accent: '#e4889b', light: '#fff6f3', seed: 44 },
-  { x: 618, y: 340, size: 0.88, rot: 12,  base: '#ef98ac', accent: '#bb4768', light: '#ffdee8', seed: 55 },
-  { x: 452, y: 274, size: 0.82, rot: 7,   base: '#f7b7c8', accent: '#d65b82', light: '#fff0f4', seed: 66 },
-  { x: 548, y: 274, size: 0.82, rot: -7,  base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 77 },
+  { x: 392, y: 338, stemEndY: 438, size: 0.88, rot: -10, base: '#ffd1d7', accent: '#e4889b', light: '#fff6f3', seed: 44 },
+  { x: 608, y: 338, stemEndY: 438, size: 0.88, rot: 10,  base: '#ef98ac', accent: '#bb4768', light: '#ffdee8', seed: 55 },
+  { x: 452, y: 278, stemEndY: 372, size: 0.82, rot: 6,   base: '#f7b7c8', accent: '#d65b82', light: '#fff0f4', seed: 66 },
+  { x: 548, y: 278, stemEndY: 372, size: 0.82, rot: -6,  base: '#f6c9bf', accent: '#df7b89', light: '#fff2e9', seed: 77 },
 
-  // 4 küçük kenar ama artık dışarı kaçmıyor
-  { x: 344, y: 472, size: 0.72, rot: -15, base: '#ffe1df', accent: '#e0929e', light: '#fff7f0', seed: 88 },
-  { x: 656, y: 472, size: 0.72, rot: 15,  base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 99 },
-  { x: 376, y: 258, size: 0.64, rot: -10, base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 111 },
-  { x: 624, y: 258, size: 0.64, rot: 10,  base: '#f3b0bf', accent: '#cc5f7c', light: '#ffe7ed', seed: 122 },
+  // Kenardaki çiçekler artık içeri alındı; taşmayı önlemek için biraz daha küçük.
+  { x: 360, y: 486, stemEndY: 566, size: 0.66, rot: -12, base: '#ffe1df', accent: '#e0929e', light: '#fff7f0', seed: 88 },
+  { x: 640, y: 486, stemEndY: 566, size: 0.66, rot: 12,  base: '#f5abc0', accent: '#c95578', light: '#ffe9ee', seed: 99 },
+  { x: 390, y: 262, stemEndY: 336, size: 0.58, rot: -8,  base: '#f9d6dd', accent: '#db7b95', light: '#fff7f6', seed: 111 },
+  { x: 610, y: 262, stemEndY: 336, size: 0.58, rot: 8,   base: '#f3b0bf', accent: '#cc5f7c', light: '#ffe7ed', seed: 122 },
 ];
 
 const leafConfigs = [
-  { x: 408, y: 628, rot: -46, s: 1.08 }, { x: 592, y: 626, rot: 46, s: 1.08 },
-  { x: 378, y: 548, rot: -66, s: .88 },  { x: 622, y: 548, rot: 66, s: .88 },
-  { x: 452, y: 704, rot: -28, s: .82 },  { x: 548, y: 704, rot: 28, s: .82 },
-  { x: 456, y: 514, rot: -22, s: .72 },  { x: 544, y: 514, rot: 22, s: .72 },
-  { x: 434, y: 386, rot: -124, s: .62 }, { x: 566, y: 386, rot: 124, s: .62 },
+  { x: 410, y: 620, rot: -44, s: 1.02 }, { x: 590, y: 620, rot: 44, s: 1.02 },
+  { x: 386, y: 548, rot: -62, s: .82 },  { x: 614, y: 548, rot: 62, s: .82 },
+  { x: 455, y: 700, rot: -27, s: .78 },  { x: 545, y: 700, rot: 27, s: .78 },
+  { x: 463, y: 508, rot: -18, s: .66 },  { x: 537, y: 508, rot: 18, s: .66 },
 ];
 
 function el(type, attrs = {}, children = []) {
@@ -225,24 +227,28 @@ function petalHighlightPath(length, width) {
   return `M ${-width * 0.12} ${-length * 0.18} C ${-width * 0.2} ${-length * 0.45}, ${-width * 0.04} ${-length * 0.72}, ${width * 0.08} ${-length * 0.88}`;
 }
 
-function makeSepal(delay) {
-  // Sap-çiçek birleşimi: çanak yapraklar çiçeğin hemen ALTINA oturur.
-  // Bu sayede dallar çiçekten bağımsız gibi görünmez.
-  const group = el('g', { class: 'calyx-cover', transform: 'translate(0 56)' });
+function makeSepal(delay, connectorY) {
+  // Sap-çiçek kilidi:
+  // connectorY = stemEndY - flowerY.
+  // Çanak yaprak ve sap boynu tam bu noktaya iner; sap da aynı noktada biter.
+  const neckTop = Math.max(36, connectorY - 54);
+  const group = el('g', { class: 'calyx-cover' });
 
   group.appendChild(el('path', {
     class: 'flower-neck',
-    d: 'M 0 55 C -1 39, -1 22, 0 4',
+    d: `M 0 ${connectorY} C -1 ${connectorY - 20}, -1 ${neckTop + 16}, 0 ${neckTop}`,
     style: { '--delay': `${delay + 0.06}s` }
   }));
 
+  const sepalBaseY = neckTop + 8;
   const angles = [-58, -34, -12, 12, 34, 58];
+
   angles.forEach((angle, i) => {
     group.appendChild(el('path', {
       class: 'sepal',
       d: 'M 0 8 C -10 -10 -7 -31 0 -48 C 10 -31 11 -10 0 8 Z',
       fill: i % 2 ? '#4f7449' : '#678852',
-      transform: `rotate(${angle}) translate(0 -2)`,
+      transform: `translate(0 ${sepalBaseY}) rotate(${angle}) translate(0 -2)`,
       style: { '--delay': `${delay + 0.10 + i * 0.03}s` }
     }));
   });
@@ -250,7 +256,7 @@ function makeSepal(delay) {
   group.appendChild(el('ellipse', {
     class: 'sepal',
     cx: '0',
-    cy: '11',
+    cy: sepalBaseY + 12,
     rx: '21',
     ry: '9',
     fill: '#55784c',
@@ -332,7 +338,7 @@ function createPeony(config, index, delay) {
     }));
     group.appendChild(wrapper);
   }
-  group.appendChild(makeSepal(delay + 0.18));
+  group.appendChild(makeSepal(delay + 0.18, config.stemEndY - config.y));
 
   return group;
 }
@@ -343,21 +349,21 @@ function makeCraftPaperBack(delay) {
   // Arka gazete kağıdı: çiçeklerin arkasında geniş ama düzenli sarım.
   group.appendChild(el('path', {
     class: 'paper-piece paper-back newspaper-paper',
-    d: 'M 278 570 C 350 628 425 704 500 790 C 575 704 650 628 722 570 C 715 744 664 943 592 1072 C 556 1093 522 1104 500 1108 C 478 1104 444 1093 408 1072 C 336 943 285 744 278 570 Z',
+    d: 'M 248 560 C 334 626 420 700 500 792 C 580 700 666 626 752 560 C 738 742 682 944 602 1070 C 565 1092 526 1105 500 1110 C 474 1105 435 1092 398 1070 C 318 944 262 742 248 560 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-wing newspaper-paper',
-    d: 'M 278 574 C 336 626 397 705 474 822 C 392 795 320 756 248 704 C 230 660 242 607 278 574 Z',
+    d: 'M 248 566 C 319 620 392 704 474 826 C 382 798 300 752 224 696 C 210 648 222 596 248 566 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + 0.1}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-wing newspaper-paper',
-    d: 'M 722 574 C 664 626 603 705 526 822 C 608 795 680 756 752 704 C 770 660 758 607 722 574 Z',
+    d: 'M 752 566 C 681 620 608 704 526 826 C 618 798 700 752 776 696 C 790 648 778 596 752 566 Z',
     fill: 'url(#paperLightGradient)',
     style: { '--delay': `${delay + 0.14}s` }
   }));
@@ -368,8 +374,8 @@ function makeCraftPaperBack(delay) {
 function makeNewsLines(group, delay, prefix, startY, side) {
   for (let i = 0; i < 9; i++) {
     const y = startY + i * 18;
-    const x1 = side === 'left' ? 322 + (i % 3) * 9 : 560 + (i % 3) * 6;
-    const x2 = side === 'left' ? 452 - (i % 2) * 16 : 690 - (i % 2) * 14;
+    const x1 = side === 'left' ? 304 + (i % 3) * 9 : 548 + (i % 3) * 6;
+    const x2 = side === 'left' ? 458 - (i % 2) * 16 : 708 - (i % 2) * 14;
     group.appendChild(el('path', {
       class: 'news-line',
       d: `M ${x1} ${y} C ${(x1 + x2) / 2} ${y + 8}, ${(x1 + x2) / 2} ${y - 5}, ${x2} ${y + 2}`,
@@ -388,21 +394,21 @@ function makeCraftPaperFront(delay) {
   // Ön gazete sarımı: sapları toparlar, çiçekleri kağıda gömmez.
   group.appendChild(el('path', {
     class: 'paper-piece paper-front newspaper-paper',
-    d: 'M 302 642 C 380 720 444 805 500 898 C 556 805 620 720 698 642 C 682 810 642 978 584 1078 C 550 1095 521 1105 500 1109 C 479 1105 450 1095 416 1078 C 358 978 318 810 302 642 Z',
+    d: 'M 282 640 C 366 720 438 804 500 898 C 562 804 634 720 718 640 C 698 812 654 980 590 1080 C 555 1098 524 1107 500 1111 C 476 1107 445 1098 410 1080 C 346 980 302 812 282 640 Z',
     fill: 'url(#paperGradient)',
     style: { '--delay': `${delay + 0.2}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 302 642 C 374 718 435 802 500 898 C 447 879 389 836 326 780 C 309 735 301 690 302 642 Z',
+    d: 'M 282 640 C 360 716 430 802 500 898 C 442 878 382 832 306 776 C 290 732 281 686 282 640 Z',
     fill: 'rgba(255,255,255,0.28)',
     style: { '--delay': `${delay + 0.34}s` }
   }));
 
   group.appendChild(el('path', {
     class: 'paper-piece paper-fold',
-    d: 'M 698 642 C 626 718 565 802 500 898 C 553 879 611 836 674 780 C 691 735 699 690 698 642 Z',
+    d: 'M 718 640 C 640 716 570 802 500 898 C 558 878 618 832 694 776 C 710 732 719 686 718 640 Z',
     fill: 'rgba(95,87,76,0.11)',
     style: { '--delay': `${delay + 0.38}s` }
   }));
@@ -499,9 +505,9 @@ function buildBouquet() {
   flowers.forEach((flower, i) => {
     const startX = baseX + (i - 5) * 4.5;
     const bend = (flower.x - 500) * 0.42;
-    // Sap ucu çiçeğin alt çanak yaprağına bağlanıyor.
-    // makeSepal translate(0 56) ile aynı eksene denk gelecek şekilde hesaplandı.
-    const stemEndY = flower.y + 108 * flower.size;
+    // Sap ucu direkt flower.stemEndY değerine gider.
+    // Çiçek de aynı x ekseninde oluşturulduğu için dal-çiçek ayrılığı yok.
+    const stemEndY = flower.stemEndY;
     const path = curvedStemPath(startX, baseY + (i % 3) * 7, flower.x, stemEndY, bend);
     stemsLayer.appendChild(el('path', {
       class: 'stem-shadow',
